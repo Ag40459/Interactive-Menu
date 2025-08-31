@@ -1,0 +1,48 @@
+{
+  "categories": [
+    { "id": "food", "name": "Comidas", "icon": "🍽️" },
+    { "id": "drinks", "name": "Bebidas", "icon": "🥤" }
+  ],
+  "products": [
+    {
+      "id": "pst-carne",
+      "name": "Pastel de Carne",
+      "category": "food",
+      "price": 12.0,
+      "image": "/images/pasteis/carne.jpg",
+      "description": "Massa crocante, recheio de carne temperada.",
+      "tags": ["popular", "salgado"],
+      "available": true
+    },
+    {
+      "id": "pst-queijo",
+      "name": "Pastel de Queijo",
+      "category": "food",
+      "price": 12.0,
+      "image": "/images/pasteis/queijo.jpg",
+      "description": "Queijo derretendo por dentro.",
+      "tags": ["vegetariano"],
+      "available": true
+    },
+    {
+      "id": "refri-lata",
+      "name": "Refrigerante Lata",
+      "category": "drinks",
+      "price": 6.0,
+      "image": "/images/bebidas/refri-lata.jpg",
+      "description": "350 ml, sabores variados.",
+      "tags": ["gelado"],
+      "available": true
+    },
+    {
+      "id": "suco-laranja",
+      "name": "Suco de Laranja",
+      "category": "drinks",
+      "price": 8.0,
+      "image": "/images/bebidas/suco-laranja.jpg",
+      "description": "Natural, sem conservantes.",
+      "tags": ["natural"],
+      "available": true
+    }
+  ]
+}
