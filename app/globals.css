@@ -1,20 +1,28 @@
-@import "tailwindcss";
+/* app/globals.css */
+ @import "tailwindcss";
 
+ @theme {
+   --color-cream: #FAF7F2;
+   --color-terracotta: #DDA48F;
+   --color-brown: #3E2723;
+   --color-rose: #F5C3CF;
+   --color-teal: #20B7A6;
+ }
 
-/* Paleta do projeto */
-:root {
-  --cream: #fdfbf7;
-  --terracotta: #e7d6c7;
-  --brown: #4a2c2a;
-  --rose: #a86f6f;
-  --teal: #2fb3b5;
+:root { color-scheme: dark; }  /* força controles nativos (select, inputs) a usarem tema escuro */
+
+ html, body { height: 100%; }
+ body { background: var(--color-cream); }
+
+/* Garantir contraste dos controles nativos mesmo em navegadores que ignoram color-scheme */
+select, option, input, button { color: #fff; }
+select, input {
+  background-color: rgba(17,24,39,.6); /* ~ gray-900/60 */
+  border-color: rgba(255,255,255,.2);
 }
+option { background-color: rgb(17,24,39); } /* fallback p/ lista do dropdown */
 
-html, body, #__next, #root {
-  height: 100%;
-}
-
-body {
-  background: var(--cream);
-  color: var(--brown);
+select, option{
+  color:#fff;
+  background-color: rgba(17, 24, 39, 0.85);
 }

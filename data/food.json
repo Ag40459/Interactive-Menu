@@ -1,0 +1,33 @@
+{
+"categories": [
+{ "id": "pastel", "label": "Pastéis" },
+{ "id": "snacks", "label": "Snacks" },
+{ "id": "combos", "label": "Combos" }
+],
+"items": [
+{
+"id": "pastel-carne",
+"name": "Pastel de Carne",
+"description": "Massa crocante recheada com carne moída temperada.",
+"price": 12.0,
+"image": "/images/products/pastel-carne.jpg",
+"category": "pastel"
+},
+{
+"id": "pastel-queijo",
+"name": "Pastel de Queijo",
+"description": "Queijo derretido em massa leve e dourada.",
+"price": 11.0,
+"image": "/images/products/pastel-queijo.jpg",
+"category": "pastel"
+},
+{
+"id": "batata-frita",
+"name": "Batata Frita",
+"description": "Porção individual, sequinha e crocante.",
+"price": 15.0,
+"image": "/images/products/batata-frita.jpg",
+"category": "snacks"
+}
+]
+}

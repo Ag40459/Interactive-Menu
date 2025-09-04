@@ -1,0 +1,259 @@
+{
+  "categories": [
+    { "id": "sodas", "label": "Refrigerantes" },
+    { "id": "juices", "label": "Sucos" },
+    { "id": "beers", "label": "Cervejas" },
+    { "id": "alcoholic_juices", "label": "Sucos com Álcool" },
+    { "id": "energy_drinks", "label": "Energéticos" }
+  ],
+  "items": [
+    {
+      "id": "coca-cola-lata-310ml",
+      "name": "Coca-Cola",
+      "description": "Lata 310ml",
+      "price": 6.99,
+      "image": "/images/products/coca-cola-lata-310ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "refrigerante-mineiro-baby-garrafa-250ml",
+      "name": "Refrigerante Mineiro Baby",
+      "description": "Garrafa 250ml",
+      "price": 4.99,
+      "image": "/images/products/refrigerante-mineiro-baby-garrafa-250ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "refrigerante-guarana-mineiro-1-5l",
+      "name": "Refrigerante Guaraná Mineiro",
+      "description": "Garrafa 1,5l",
+      "price": 10.99,
+      "image": "/images/products/refrigerante-guarana-mineiro-1-5l.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "coca-cola-1-5l",
+      "name": "Coca-Cola",
+      "description": "Garrafa 1,5l",
+      "price": 14.9,
+      "image": "/images/products/coca-cola-1-5l.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "fanta-laranja-310-ml",
+      "name": "Fanta Laranja",
+      "description": "Lata 310ml",
+      "price": 6.99,
+      "image": "/images/products/fanta-laranja-310-ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "refrigerante-guarana-mineiro-2l",
+      "name": "Refrigerante Mineiro",
+      "description": "Garrafa 2L",
+      "price": 12.99,
+      "image": "/images/products/refrigerante-guarana-mineiro-2l.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "coca-cola-2l",
+      "name": "Coca-Cola ",
+      "description": "Garrafa 2L",
+      "price": 17.9,
+      "image": "/images/products/coca-cola-2l.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "fanta-uva-350ml",
+      "name": "Fanta Uva",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/fanta-uva-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "sprite-310ml",
+      "name": "Sprite",
+      "description": "Lata 310ml",
+      "price": 6.99,
+      "image": "/images/products/sprite-310ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "coca-cola-1l",
+      "name": "Coca-Cola",
+      "description": "Garrafa 1l",
+      "price": 12.99,
+      "image": "/images/products/coca-cola-1l.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "guarana-antartica-lata",
+      "name": "Guarana Antartica",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/guarana-antartica-lata.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "coca-cola-zero-lata-350ml",
+      "name": "Coca Cola Zero",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/coca-cola-zero-lata-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "coca-cola-lata-350ml",
+      "name": "Coca Cola",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/coca-cola-lata-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "guarana-zero-guarana-antarctica",
+      "name": "Guaraná Antarctica Zero",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/guarana-zero-guarana-antarctica.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "refrigerante-sukita-sabor-uva-350ml",
+      "name": "Refrigerante Sukita Uva",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/refrigerante-sukita-sabor-uva-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "refrigerante-laranja-sukita-350ml",
+      "name": "Refrigerante Laranja Sukita",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/refrigerante-laranja-sukita-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "soda-limonada-350ml",
+      "name": "Soda Limonada",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/soda-limonada-350ml.jpg",
+      "category": "sodas"
+    },
+    {
+      "id": "suco-del-valle-pessego-1l",
+      "name": "Suco Del Valle Pêssego",
+      "description": "Embalagem 1L",
+      "price": 13.99,
+      "image": "/images/products/suco-del-valle-pessego-1l.jpg",
+      "category": "juices"
+    },
+    {
+      "id": "suco-del-valle-maracuja-1l",
+      "name": "Suco Del Valle Maracujá",
+      "description": "Embalagem 1L",
+      "price": 13.99,
+      "image": "/images/products/suco-del-valle-maracuja-1l.jpg",
+      "category": "juices"
+    },
+    {
+      "id": "suco-del-valle-manga-1l",
+      "name": "Suco Del Valle Manga",
+      "description": "Embalagem 1L",
+      "price": 13.99,
+      "image": "/images/products/suco-del-valle-manga-1l.jpg",
+      "category": "juices"
+    },
+    {
+      "id": "suco-del-valle-uva-1l",
+      "name": "Suco Del Valle Uva",
+      "description": "Embalagem 1L",
+      "price": 13.99,
+      "image": "/images/products/suco-del-valle-uva-1l.jpg",
+      "category": "juices"
+    },
+    {
+      "id": "cerveja-long-neck-spaten-355ml",
+      "name": "Cerveja  Spaten",
+      "description": "Long Neck 355ml",
+      "price": 10.99,
+      "image": "/images/products/cerveja-long-neck-spaten-355ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-stella-artois-long-neck-330ml",
+      "name": "Cerveja Stella Artois",
+      "description": "Long Neck 330ml",
+      "price": 10.99,
+      "image": "/images/products/cerveja-stella-artois-long-neck-330ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-budweiser-long-neck-330ml",
+      "name": "Cerveja Budweiser",
+      "description": "Long Neck 330ml",
+      "price": 10.99,
+      "image": "/images/products/cerveja-budweiser-long-neck-330ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-long-neck-corona-330ml",
+      "name": "Cerveja  Corona",
+      "description": "Long Neck 330ml",
+      "price": 13.99,
+      "image": "/images/products/cerveja-long-neck-corona-330ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-extra-coronita-corona-210ml",
+      "name": "Cerveja Extra Coronita Corona",
+      "description": "Long Neck 210ml",
+      "price": 9.99,
+      "image": "/images/products/cerveja-extra-coronita-corona-210ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-caracu-lata-350ml",
+      "name": "Cerveja Caracu",
+      "description": "Long Neck 350ml",
+      "price": 9.99,
+      "image": "/images/products/cerveja-caracu-lata-350ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-brahma-600ml",
+      "name": "Cerveja Brahma",
+      "description": "Garrafa 600ml",
+      "price": 16.99,
+      "image": "/images/products/cerveja-brahma-600ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-skol-lata-350ml",
+      "name": "Cerveja Skol",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/cerveja-skol-lata-350ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-brahma-lata-350ml",
+      "name": "Cerveja Brahma",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/cerveja-brahma-lata-350ml.jpg",
+      "category": "beers"
+    },
+    {
+      "id": "cerveja-antarctica-lata-350ml",
+      "name": "Cerveja Antarctica",
+      "description": "Lata 350ml",
+      "price": 6.99,
+      "image": "/images/products/cerveja-antarctica-lata-350ml.jpg",
+      "category": "beers"
+    }
+  ]
+}

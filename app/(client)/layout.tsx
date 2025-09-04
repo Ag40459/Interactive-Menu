@@ -1,11 +1,6 @@
-// app/layout.tsx
-import "../../app/globals.css";
+// app/(client)/layout.tsx
 import type { ReactNode } from "react";
 
-export default function RootLayout({ children }: { children: ReactNode }) {
-  return (
-    <html lang="pt-BR">
-      <body>{children}</body>
-    </html>
-  );
+export default function ClientAreaLayout({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }
