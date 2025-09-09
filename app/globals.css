@@ -7,6 +7,13 @@
    --color-brown: #3E2723;
    --color-rose: #F5C3CF;
    --color-teal: #20B7A6;
+
+    /* aliases usados pelos componentes */
+  --cream: var(--color-cream, #FAF7F2);
+  --terracotta: var(--color-terracotta, #DDA48F);
+  --brown: var(--color-brown, #3E2723);
+  --rose: var(--color-rose, #F5C3CF);
+  --teal: var(--color-teal, #20B7A6);
  }
 
 :root { color-scheme: dark; }  /* força controles nativos (select, inputs) a usarem tema escuro */

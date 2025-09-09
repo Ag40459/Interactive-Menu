@@ -1,7 +1,4 @@
-// app/(client)/page.tsx
-// Landing “Cardápio digital em construção” — responsiva, bonita, com WhatsApp (link pequeno)
-// Tailwind v4 + variáveis via .env
-
+import Image from "next/image";
 function digitsOnly(s: string) {
   return s.replace(/\D/g, "");
 }
@@ -88,6 +85,19 @@ export default function Home() {
                 Estamos preparando algo saboroso. Em breve você poderá consultar o cardápio
                 e fazer seus pedidos diretamente por aqui. 🍽️
               </p>
+
+              {/* Link para o iFood */}
+              <div className="mt-7">
+                <a
+                  href="https://www.ifood.com.br/delivery/uberlandia-mg/reino-do-pastel-panorama/fa1546dd-12a1-4995-b707-d32e9d974ee8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block rounded-lg border border-[var(--terracotta)]/70 px-4 py-2 text-sm font-medium 
+                             text-[var(--brown)] hover:bg-[var(--terracotta)]/20 transition"
+                >
+                  Acesse o Cardápio no iFood
+                </a>
+              </div>
 
               {/* CTA pequeno: WhatsApp (somente link, sem ícone grande) */}
               <div className="mt-7">

@@ -1,100 +1,143 @@
-# Interactive Menu — Cardápio Digital (MVP Tirador de Pedidos)
+# 🍽️ Cardápio Digital Interativo
 
-MVP focado em **Next.js 14 (App Router)** com **Tailwind + shadcn/ui + Zustand**.  
-Catálogo em `data/menu.json` (fase 1). **Pedidos gravados em Postgres** e exibidos no **painel do lojista**.
+Projeto de **Cardápio Digital** para restaurantes, bares e pastelarias,
+com integração via QR Code, seleção de mesa, carrinho e checkout.
 
-## 📦 Stack
-- Next.js 14 (App Router)
-- Tailwind CSS + shadcn/ui
-- Zustand (estado do carrinho)
-- PostgreSQL (Vercel Postgres ou Supabase) via Prisma
-- API interna:
-  - `POST /api/orders` — cria pedido
-  - `GET /api/orders?status=` — lista por status
-  - `PATCH /api/orders/:id/status` — atualiza status
+------------------------------------------------------------------------
 
-## 📁 Estrutura (resumo)
-app/
-├─ (client)/ # app do cliente (cardápio)
-│ ├─ layout.tsx
-│ ├─ page.tsx # home
-│ ├─ cart/page.tsx # carrinho
-│ ├─ checkout/page.tsx # pagamento/recebimento
-│ ├─ receipt/page.tsx # comprovante
-│ └─ _components/
-├─ (admin)/dashboard/ # painel do lojista
-│ ├─ page.tsx
-│ └─ _components/
-├─ api/
-│ ├─ orders/route.ts
-│ └─ orders/[id]/status/route.ts
-└─ globals.css
-data/menu.json
-lib/{cartStore,db,types,validators}.ts
-prisma/schema.prisma
-public/images/
+## 🚀 Tecnologias
 
-## 🔧 Variáveis de Ambiente
-Crie `.env.local`:
+-   **Next.js 15** (App Router, Turbopack)
+-   **React 18**
+-   **TypeScript**
+-   **TailwindCSS**
+-   **shadcn/ui**
+-   **Node.js** (fs, path)
+-   **Vercel** (deploy)
+-   Estrutura pronta para **migração futura para banco de dados**
 
-NEXT_PUBLIC_STORE_NAME="Your Store"
-NEXT_PUBLIC_WHATSAPP_NUMBER="+5581999999999" # reserva (opcional na fase 1)
-PANEL_PASSCODE="admin123" # protege /dashboard
-DATABASE_URL="postgres://..." # quando ativar o DB
+------------------------------------------------------------------------
 
+## 📂 Estrutura de Pastas
 
-## 🚀 Executando localmente
-```bash
+    app/
+     ├─ (client)/
+     │   ├─ menu/page.tsx
+     │   ├─ catalog/page.tsx
+     │   ├─ cart/page.tsx
+     │   ├─ checkout/page.tsx
+     │   └─ receipt/page.tsx
+     │
+     ├─ (admin)/
+     │   └─ dashboard/page.tsx
+     │
+     ├─ api/
+     │   ├─ orders/[id]/status/route.ts
+     │   ├─ orders/route.ts
+     │   └─ qrcode/route.ts
+     │
+     ├─ layout.tsx      # Layout raiz (com <html> e <body>)
+     └─ globals.css
+
+------------------------------------------------------------------------
+
+## 🗂️ Estrutura dos Dados
+
+Agora o cardápio foi dividido em **dois arquivos JSON** dentro da pasta
+`data/`:
+
+-   `food.json`
+-   `drinks.json`
+
+Cada arquivo segue o formato:
+
+``` json
+{
+  "categories": [
+    { "id": "pastels", "label": "Pasteis" },
+    { "id": "combos", "label": "Combos" }
+  ],
+  "items": [
+    {
+      "id": "pastel-carne",
+      "name": "Pastel de Carne",
+      "description": "Pastel frito com carne moída",
+      "price": 8.50,
+      "image": "/images/products/pastel-carne.jpg",
+      "category": "pastels"
+    }
+  ]
+}
+```
+
+-   Se `categories` não existir, elas são **derivadas automaticamente**
+    dos itens.
+
+------------------------------------------------------------------------
+
+## 🔄 Funcionalidades Implementadas
+
+-   [x] **Divisão JSON** (`food.json` e `drinks.json`)
+-   [x] **Categorias automáticas** se não forem fornecidas no JSON
+-   [x] **Filtro de categorias**
+    -   Sem botão "Apply filter" → já aplica no `onChange`
+    -   Reset para `ALL` ao trocar entre comidas e bebidas
+-   [x] **Fallback de imagens** (não quebra a página se não encontrar)
+-   [x] **Correções de Layout**
+    -   `app/(client)/layout.tsx` não contém `<html>/<body>`
+    -   Apenas `app/layout.tsx` raiz usa `<html>/<body>`
+-   [x] **Rotas de API preparadas**
+    -   `/api/orders/[id]/status`
+    -   `/api/orders`
+    -   `/api/qrcode`
+-   [x] **Deploy funcional no Vercel**
+
+------------------------------------------------------------------------
+
+## 🖼️ Interface
+
+-   **Menu inicial** → escolha de mesa e acesso rápido ao cardápio
+-   **Catálogo (Comida/Bebida)** → filtro por categorias, grid
+    responsivo de produtos
+-   **Carrinho** → revisão dos itens
+-   **Checkout** → finalização do pedido
+-   **Receipt** → recibo simplificado
+
+------------------------------------------------------------------------
+
+## 🛠️ Como rodar localmente
+
+``` bash
+# Instalar dependências
 npm install
+
+# Rodar em modo desenvolvimento
 npm run dev
-# http://localhost:3000
 
-☁️ Deploy (Vercel)
+# Build para produção
+npm run build
+npm start
+```
 
-GitHub
+------------------------------------------------------------------------
 
-git init
-git add .
-git commit -m "chore: initial"
-git branch -M main
-git remote add origin https://github.com/<user>/<repo>.git
-git push -u origin main
+## 🌐 Deploy
 
+O projeto está configurado para deploy no **Vercel**.\
+Apenas rodar no terminal:
 
-Vercel
+``` bash
+vercel
+```
 
-Add New → Project → Import do GitHub
+E seguir as instruções (o projeto já está linkado).
 
-Configure Environment Variables (ver acima)
+------------------------------------------------------------------------
 
-Deploy
+## 📌 Próximos Passos
 
-Domínio do cliente (opcional)
+-   Integração real com **banco de dados**
+-   Painel administrativo completo
+-   Integração de **pagamentos**
 
-Project → Settings → Domains → Add
-
-Siga as instruções de DNS (CNAME/TXT)
-
-🧭 Telas obrigatórias (fase 1)
-
-Home (Food/Drinks; exibe “Table X” se ?table=12)
-
-Listagem de produtos (grid + categorias)
-
-Carrinho (itens, qty, notas, total)
-
-Pagamento (dinheiro: troco; pix: chave/QR simples)
-
-Modal de endereço (entrega)
-
-Comprovante (número do pedido, itens, valores, destino)
-
-Painel do lojista (/dashboard) — Kanban: Novo → Preparo → Pronto → Entregue/Cancelado
-
-🗺️ Roadmap rápido
-
-Fase 1: catálogo via JSON + pedidos no Postgres + painel por polling
-
-Fase 1.5: Pix “copia e cola” e impressão no painel
-
-Futuro: real-time no painel, CRUD de catálogo, auth completa
+------------------------------------------------------------------------

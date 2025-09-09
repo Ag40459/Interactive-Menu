@@ -3,7 +3,9 @@ import Link from "next/link";
 import fs from "node:fs/promises";
 import path from "node:path";
 import CategorySelect from "./_components/CategorySelect";
-import ProductCard from "./_components/ProductCard";
+import CatalogGridWithModal from "./_components/CatalogGridWithModal";
+import CheckoutBar from "./_components/CheckoutBar";
+import CartIcon from "./_components/CartIcon";
 
 type SP = Record<string, string | string[] | undefined>;
 
@@ -24,7 +26,6 @@ async function loadData(tab: "food" | "drinks"): Promise<Required<CatalogData>> 
   const raw = await fs.readFile(filePath, "utf-8");
   const data = JSON.parse(raw) as CatalogData;
 
-  // Se não vier categories no JSON, derivar a partir dos itens
   const categories: Category[] =
     data.categories && data.categories.length
       ? data.categories
@@ -49,23 +50,31 @@ export default async function CatalogPage({
 
   const rawTab = sp?.tab as string | undefined;
   const tab: "food" | "drinks" = rawTab === "drinks" ? "drinks" : "food";
-  const title = tab === "drinks" ? "Drinks" : "Food";
+  const tabLabel = tab === "drinks" ? "Bebidas" : "Comida";
 
-  // quando troca de aba, não propagamos category (volta para “all”)
   const qsMesa = mesa ? `&mesa=${encodeURIComponent(mesa)}` : "";
-
   const selectedCategory = (sp?.category as string | undefined) ?? "all";
 
   const data = await loadData(tab);
   const categories = data.categories;
+
+  const categoryObj =
+    selectedCategory === "all"
+      ? null
+      : categories.find((c) => c.id === selectedCategory) ??
+        { id: selectedCategory, label: selectedCategory };
+
   const items =
     selectedCategory === "all"
       ? data.items
       : data.items.filter((it) => it.category === selectedCategory);
 
+  // se "Todas": mostra "Comida/Bebidas"; senão: só o nome da categoria
+  const tituloTopo = categoryObj ? categoryObj.label : tabLabel;
+
   return (
-    <main className="relative min-h-dvh w-full overflow-hidden text-white">
-      {/* Fundo igual ao da Home */}
+    <main className="relative min-h-dvh w-full text-white">
+      {/* Background */}
       <div
         className="absolute inset-0 -z-10"
         style={{
@@ -77,32 +86,38 @@ export default async function CatalogPage({
       <div className="absolute inset-0 -z-10 bg-black/40" />
       <div className="absolute inset-0 -z-10 backdrop-blur-sm" />
 
-      <div className="mx-auto w-full max-w-screen-sm px-4 sm:px-6 py-4">
-        {/* Header */}
-        <header className="flex items-center justify-between">
-          <Link
-            href={`/menu${mesa ? `?mesa=${encodeURIComponent(mesa)}` : ""}`}
-            className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur px-4 py-2 text-sm hover:bg-white/15 transition"
-            aria-label="Back"
+      <div className="mx-auto w-full max-w-screen-sm px-4 sm:px-6 py-4 pb-24">
+        {/* Header (fixo) */}
+        <div className="sticky top-0 z-50 -mx-4 sm:-mx-6">
+          <header
+            className="flex items-center justify-between px-4 sm:px-6 py-3
+                       bg-black/40 backdrop-blur-md border-b border-white/10 shadow-sm"
           >
-            ← Back
-          </Link>
+            <Link
+              href={`/menu${mesa ? `?mesa=${encodeURIComponent(mesa)}` : ""}`}
+              className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 
+                         backdrop-blur px-3 py-2 text-sm hover:bg-white/15 transition"
+              aria-label="Voltar"
+              title="Voltar"
+            >
+              ←
+            </Link>
 
-          <div className="text-center">
-            <div className="text-xs opacity-70">{mesa ? `Table ${mesa}` : ""}</div>
-            <h1 className="text-2xl font-bold leading-tight">{title}</h1>
-          </div>
+            <div className="text-center">
+              <div className="text-xs opacity-70">{mesa ? `Mesa ${mesa}` : ""}</div>
+              <h1
+                className="text-2xl font-bold leading-tight truncate max-w-[70vw] mx-auto whitespace-nowrap"
+                title={tituloTopo}
+              >
+                {tituloTopo}
+              </h1>
+            </div>
 
-          <Link
-            href={`/cart?from=catalog&tab=${tab}${qsMesa}`}
-            className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/20 backdrop-blur px-4 py-2 text-sm hover:bg-white/15 transition"
-            aria-label="Cart"
-          >
-            🛒 Cart
-          </Link>
-        </header>
+            <CartIcon href={`/cart?from=catalog&tab=${tab}${qsMesa}`} />
+          </header>
+        </div>
 
-        {/* Tabs (não repassam category para resetar em “All”) */}
+        {/* Abas */}
         <nav className="mt-6 grid grid-cols-2 gap-3">
           <Link
             href={`/catalog?tab=food${qsMesa}`}
@@ -112,7 +127,7 @@ export default async function CatalogPage({
                 : "bg-white/10 border-white/20 hover:bg-white/15"
             }`}
           >
-            Food
+            Comida
           </Link>
           <Link
             href={`/catalog?tab=drinks${qsMesa}`}
@@ -122,14 +137,14 @@ export default async function CatalogPage({
                 : "bg-white/10 border-white/20 hover:bg-white/15"
             }`}
           >
-            Drinks
+            Bebidas
           </Link>
         </nav>
 
-        {/* Category (client) – muda a URL na hora */}
+        {/* Categoria */}
         <div className="mt-4">
           <label htmlFor="category" className="block text-sm opacity-80 mb-2">
-            Category
+            Categorias
           </label>
 
           <CategorySelect
@@ -141,25 +156,12 @@ export default async function CatalogPage({
           />
         </div>
 
-        {/* Grid de produtos */}
-        <section className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3">
-          {items.length === 0 ? (
-            <div className="col-span-full text-center opacity-80 text-sm">
-              No items in this category.
-            </div>
-          ) : (
-            items.map((it) => (
-              <ProductCard
-                key={it.id}
-                name={it.name}
-                description={it.description}
-                price={it.price}
-                image={it.image}
-              />
-            ))
-          )}
-        </section>
+        {/* Grid + Modal */}
+        <CatalogGridWithModal items={items} />
       </div>
+
+      {/* Barra de finalização */}
+      <CheckoutBar href={`/checkout?tab=${tab}${qsMesa}`} />
     </main>
   );
 }
