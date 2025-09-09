@@ -25,8 +25,7 @@ type Props = {
 export default function AddressModal({ open, initial, onClose, onConfirm }: Props) {
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [nome, _setNome] = useState(initial?.nome ?? "");
+  const [nome, setNome] = useState(initial?.nome ?? "");
   const [cep, setCep] = useState(formatCEP(initial?.cep ?? ""));
   const [rua, setRua] = useState(initial?.rua ?? "");
   const [numero, setNumero] = useState(initial?.numero ?? "");
@@ -252,14 +251,23 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
 
         {/* Form */}
         <div className="mt-4 space-y-3">
+          {/* 1) Nome */}
+          <L label="Nome" required>
+            <input
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
+              placeholder="Seu nome completo"
+            />
+          </L>
+
+          {/* 2) CEP */}
           <L
             label="CEP"
             required
             hint={
               cepValid === true && serviceable !== null
-                ? (serviceable
-                  ? `Área atendida — ${eta || "ok"}`
-                  : "") // não mostra nada no topo quando for fora da área
+                ? (serviceable ? `Área atendida — ${eta || "ok"}` : "")
                 : (eta ? `Entrega estimada ${eta}` : "")
             }
             right={
@@ -293,7 +301,6 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
               className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
             />
 
-            {/* msg fora da área abaixo do input, sem quebrar o cabeçalho */}
             {cepValid === true && serviceable === false && (
               <p className="mt-1 text-xs text-rose-300">
                 Fora da área — {serviceMsg}
@@ -301,6 +308,7 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
             )}
           </L>
 
+          {/* 2.1) Rua (mantido após CEP, obrigatório) */}
           <L label="Rua" required>
             <input
               value={rua}
@@ -308,6 +316,7 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
               className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
               placeholder="Rua"
             />
+
             {openFinder && (
               <div className="mt-2 rounded-xl border border-white/20 bg-white/5 p-3">
                 <div className="grid grid-cols-2 gap-2">
@@ -358,7 +367,6 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
                           type="button"
                           className="shrink-0 rounded-md bg-white/10 border border-white/20 px-2 py-1 text-xs hover:bg-white/15"
                           onClick={() => {
-                            // Preenche os campos e fecha o painel
                             setCep(formatCEP(r.cep));
                             setRua(r.logradouro ?? "");
                             setBairro(r.bairro ?? "");
@@ -377,6 +385,7 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
             )}
           </L>
 
+          {/* 3) Número + Complemento */}
           <div className="grid grid-cols-2 gap-3">
             <L label="Número" required>
               <input
@@ -394,23 +403,16 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
                 placeholder="Apto, bloco, torre…"
               />
             </L>
+          </div>
+
+          {/* 4) Cidade + UF */}
+          <div className="grid grid-cols-2 gap-3">
             <L label="Cidade" required>
               <input
                 value={cidade}
                 onChange={(e) => setCidade(e.target.value)}
                 className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
                 placeholder="Cidade"
-              />
-            </L>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <L label="Bairro">
-              <input
-                value={bairro}
-                onChange={(e) => setBairro(e.target.value)}
-                className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
-                placeholder="Bairro"
               />
             </L>
             <L label="UF">
@@ -423,6 +425,28 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
             </L>
           </div>
 
+          {/* 5) Bairro + Telefone */}
+          <div className="grid grid-cols-2 gap-3">
+            <L label="Bairro">
+              <input
+                value={bairro}
+                onChange={(e) => setBairro(e.target.value)}
+                className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
+                placeholder="Bairro"
+              />
+            </L>
+            <L label="Telefone (WhatsApp)" required>
+              <input
+                value={telefone}
+                onChange={(e) => setTelefone(formatPhone(e.target.value))}
+                inputMode="tel"
+                placeholder="(34) 90000-0000"
+                className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
+              />
+            </L>
+          </div>
+
+          {/* 6) Ponto de referência */}
           <L label="Ponto de referência (opcional)">
             <input
               value={referencia}
@@ -431,18 +455,8 @@ export default function AddressModal({ open, initial, onClose, onConfirm }: Prop
               placeholder="Perto de..."
             />
           </L>
-
-          <L label="Telefone (WhatsApp)" required>
-            <input
-              value={telefone}
-              onChange={(e) => setTelefone(formatPhone(e.target.value))}
-              inputMode="tel"
-              placeholder="(34) 90000-0000"
-              className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
-            />
-          </L>
-
         </div>
+
 
         {/* Ações */}
         <div className="mt-5">
