@@ -143,9 +143,9 @@ export default function ReceiptPage() {
 
                     {/* Itens */}
                     <div className="mt-3 divide-y divide-white/15">
-                        {snap.items.map((it) => (
+                        {snap.items.map((it, idx) => (
                             <div
-                                key={it.id}
+                                key={it.id ?? `${it.name}-${idx}`}
                                 className="py-2 flex items-center justify-between text-[15px]"
                             >
                                 <span>
@@ -156,6 +156,7 @@ export default function ReceiptPage() {
                                 </span>
                             </div>
                         ))}
+
                         <div className="pt-3 flex items-center justify-between">
                             <span className="opacity-90">Total:</span>
                             <span className="text-lg font-extrabold">{fmt(snap.total)}</span>

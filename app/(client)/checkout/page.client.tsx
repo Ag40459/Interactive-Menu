@@ -1,12 +1,10 @@
 "use client";
 import { buildPixPayload } from "../../../lib/pix";
-import CheckoutDelivery from "./_components/CheckoutDelivery";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import useCartStore from "../../../lib/cartStore";
-import { useEffect } from "react";
 import AddressModal, { Address } from "../catalog/_components/AddressModal";
 import drinks from "../../../data/drinks.json";
 import { sendOrderViaWhatsApp, type Snapshot } from "../../../lib/wa";
@@ -17,7 +15,7 @@ import { Trash2 } from "lucide-react";
 type PayMethod = "cash" | "pix";
 function formatCurrencyBRL(value: string): string {
   // Remove tudo que não for número
-  const numeric = value.replace(/\D/g, "");
+  const numeric = value.replace(/\\D/g, "");
 
   if (!numeric) return "";
 
@@ -34,20 +32,14 @@ function formatCurrencyBRL(value: string): string {
 
 export default function CheckoutClient() {
   const sp = useSearchParams();
+  const router = useRouter();
 
   const items = useCartStore((s) => s.items);
-  const remove = useCartStore((s) => s.remove);
-  const mesa = sp?.get("mesa");
+  const remove = useCartStore((s) => s.remove); const mesa = sp?.get("mesa");
   const tab = sp?.get("tab") ?? "food";
 
   function handleRemove(id: string) {
-    const st = useCartStore.getState();
-    if (typeof (st as any).removeItem === "function") {
-      (st as any).removeItem(id);
-    } else {
-      // fallback: remove filtrando o item
-      useCartStore.setState({ items: st.items.filter((it) => it.id !== id) });
-    }
+    remove(id);
   }
 
   const toCart = `/cart${sp?.toString() ? `?${sp.toString()}` : ""}`;
@@ -64,7 +56,7 @@ export default function CheckoutClient() {
 
   const troco = useMemo(() => {
     const num = Number(
-      cashGiven.replace(/\./g, "").replace(",", ".").replace(/[^\d.]/g, "")
+      cashGiven.replace(/\\./g, "").replace(",", ".").replace(/[^\\d.]/g, "")
     );
     if (!isFinite(num)) return 0;
     return Math.max(0, num - total);
@@ -103,7 +95,7 @@ export default function CheckoutClient() {
 
   // chave pix
   const pixKey =
-    (process.env.NEXT_PUBLIC_PIX_KEY as string | undefined) ??
+    (process.env.NEXT_PUBLIC_PIX as string | undefined) ??
     "064.899.706-51";
 
   const pixPayload = useMemo(() => buildPixPayload({
@@ -114,8 +106,6 @@ export default function CheckoutClient() {
     txid: `PED-${Math.floor(Date.now() / 1000)}`             // estável o suficiente
   }), [pixKey, total]);
 
-
-  const router = useRouter();
 
   const confirmOrder = () => {
     const snapshot: Snapshot = {
@@ -155,7 +145,7 @@ export default function CheckoutClient() {
     sendOrderViaWhatsApp(snapshot, "5534988113871");
 
     // (Opcional) redirecionar para uma tela de obrigado:
-    // router.push(`/receipt?order=${snapshot.id}${mesa ? `&mesa=${mesa}` : ""}&tab=${tab}`);
+    router.push(`/receipt?order=${snapshot.id}${mesa ? `&mesa=${mesa}` : ""}&tab=${tab}`);
   };
 
 
@@ -333,7 +323,9 @@ export default function CheckoutClient() {
                 inputMode="numeric"
                 placeholder="R$ 0,00"
                 value={cashGiven}
-                onChange={(e) => setCashGiven(formatCurrencyBRL(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setCashGiven(formatCurrencyBRL(e.target.value))
+                }
                 className="w-full rounded-xl bg-white/10 border border-white/20 px-3 py-2 outline-none"
               />
               <div className="mt-2 text-sm opacity-90">
@@ -455,10 +447,11 @@ export default function CheckoutClient() {
                   type="file"
                   accept="image/*,application/pdf"
                   className="hidden"
-                  onChange={(e) => {
-                    const f = e.target.files?.[0];
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    const f = e.target.files?.[0] || null;
                     setReceiptFileName(f ? f.name : "");
                   }}
+
                 />
                 {receiptFileName ? receiptFileName : "Selecionar arquivo"}
               </label>
@@ -468,23 +461,9 @@ export default function CheckoutClient() {
         </section>
       </div>
 
-      <AddressModal
-        key={`${openAddress}-${address ? "filled" : "empty"}`}
-        open={openAddress}
-        initial={address ?? {}}
-        onClose={() => {
-          setOpenAddress(false);
-          if (!address) setDelivery(mesa ? "mesa" : "balcao");
-        }}
-        onConfirm={(addr) => {
-          setAddress(addr);
-          setOpenAddress(false);
-        }}
-      />
-
-      {/* Rodapé fixo - CTA */}
-      <div className="fixed inset-x-0 bottom-0 z-40">
-        <div className="mx-auto w-full max-w-screen-sm px-4 sm:px-6 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-3">
+      {/* Botão flutuante */}
+      <div className="fixed bottom-0 left-0 right-0 z-10 p-4">
+        <div className="mx-auto w-full max-w-screen-sm">
           <button
             type="button"
             onClick={confirmOrder}
