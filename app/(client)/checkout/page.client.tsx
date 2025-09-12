@@ -1,4 +1,6 @@
 "use client";
+import { buildPixPayload } from "../../../lib/pix";
+import CheckoutDelivery from "./_components/CheckoutDelivery";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -7,6 +9,10 @@ import useCartStore from "../../../lib/cartStore";
 import { useEffect } from "react";
 import AddressModal, { Address } from "../catalog/_components/AddressModal";
 import drinks from "../../../data/drinks.json";
+import { sendOrderViaWhatsApp, type Snapshot } from "../../../lib/wa";
+import { Trash2 } from "lucide-react";
+
+
 
 type PayMethod = "cash" | "pix";
 function formatCurrencyBRL(value: string): string {
@@ -30,8 +36,19 @@ export default function CheckoutClient() {
   const sp = useSearchParams();
 
   const items = useCartStore((s) => s.items);
+  const remove = useCartStore((s) => s.remove);
   const mesa = sp?.get("mesa");
   const tab = sp?.get("tab") ?? "food";
+
+  function handleRemove(id: string) {
+    const st = useCartStore.getState();
+    if (typeof (st as any).removeItem === "function") {
+      (st as any).removeItem(id);
+    } else {
+      // fallback: remove filtrando o item
+      useCartStore.setState({ items: st.items.filter((it) => it.id !== id) });
+    }
+  }
 
   const toCart = `/cart${sp?.toString() ? `?${sp.toString()}` : ""}`;
   const toCatalog = `/catalog?tab=${encodeURIComponent(tab)}${mesa ? `&mesa=${encodeURIComponent(mesa)}` : ""
@@ -87,17 +104,23 @@ export default function CheckoutClient() {
   // chave pix
   const pixKey =
     (process.env.NEXT_PUBLIC_PIX_KEY as string | undefined) ??
-    "000.000.000-00 (exemplo)";
+    "064.899.706-51";
+
+  const pixPayload = useMemo(() => buildPixPayload({
+    key: pixKey,
+    amount: total,
+    name: process.env.NEXT_PUBLIC_STORE_NAME || "Pastelaria e Bar da Záza", // use ASCII p/ testar
+    city: "BeloHorizonte",                                        // ASCII e <= 15
+    txid: `PED-${Math.floor(Date.now() / 1000)}`             // estável o suficiente
+  }), [pixKey, total]);
+
 
   const router = useRouter();
 
-  // confirmar pedido (futuro: POST /api/orders)
   const confirmOrder = () => {
-    // Snapshot com base no estado atual (MVP)
-    const snapshot = {
-      id: String(Math.floor(Math.random() * 9000) + 1000), // id fake
+    const snapshot: Snapshot = {
+      id: String(Math.floor(Math.random() * 9000) + 1000),
       items: items.map((it) => ({
-        id: it.id,
         name: it.name,
         price: it.price,
         quantity: it.quantity ?? 1,
@@ -108,20 +131,33 @@ export default function CheckoutClient() {
       pixKey: method === "pix" ? pixKey : undefined,
       destino:
         delivery === "mesa" && mesa
-          ? { tipo: "mesa" as const, mesa }
+          ? ({ tipo: "mesa", mesa })
           : delivery === "endereco" && address
             ? ({
               tipo: "entrega",
-              endereco: `${address.nome} — ${[address.rua, address.numero, address.bairro, address.cidade]
+              endereco: `${address.nome} — ${[
+                address.rua,
+                address.numero,
+                address.complemento,
+                address.bairro,
+                address.cidade,
+              ]
                 .filter(Boolean)
                 .join(", ")}`,
-            } as const)
-            : ({ tipo: "retirada" } as const),
+            })
+            : ({ tipo: "retirada" }),
     };
 
+    // Guarda local (se quiser mostrar recibo depois)
     localStorage.setItem("lastOrderSnapshot", JSON.stringify(snapshot));
-    router.push(`/receipt?order=${snapshot.id}${mesa ? `&mesa=${mesa}` : ""}&tab=${tab}`);
+
+    // Envia para o WhatsApp do lojista (fixo neste MVP)
+    sendOrderViaWhatsApp(snapshot, "5534988113871");
+
+    // (Opcional) redirecionar para uma tela de obrigado:
+    // router.push(`/receipt?order=${snapshot.id}${mesa ? `&mesa=${mesa}` : ""}&tab=${tab}`);
   };
+
 
   // Estado vazio
   if (items.length === 0) {
@@ -232,11 +268,24 @@ export default function CheckoutClient() {
                       <span className="opacity-80">x{it.quantity ?? 1}</span>
                     </span>
                   </div>
-                  <div className="font-medium">
-                    {fmt((it.quantity ?? 1) * it.price)}
+
+                  <div className="flex items-center gap-2">
+                    <div className="font-medium">
+                      {fmt((it.quantity ?? 1) * it.price)}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => handleRemove(it.id)}
+                      className="ml-1 inline-flex items-center justify-center w-9 h-9 rounded-xl bg-white/10 border border-white/20 hover:bg-white/15 transition"
+                      aria-label={`Remover ${it.name}`}
+                      title="Remover"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               );
+
             })}
 
 
@@ -295,12 +344,14 @@ export default function CheckoutClient() {
 
           {/* Pix */}
           {method === "pix" && (
-            <div className="mt-3 rounded-2xl bg-white/5 border border-white/15 p-3">
+            <div className="mt-3 rounded-2xl bg-white/5 border border-white/15 p-3 space-y-3">
               <div className="flex items-center gap-3">
-                {/* QR placeholder */}
-                <div className="w-20 h-20 rounded bg-white/90 text-black grid place-items-center text-xs font-semibold">
-                  QR
-                </div>
+                {/* QR gerado a partir do payload */}
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(pixPayload)}&size=120x120`}
+                  alt="QR Pix"
+                  className="rounded bg-white p-1"
+                />
                 <div className="flex-1">
                   <div className="text-sm opacity-85">
                     Chave Pix: <span className="font-medium">{pixKey}</span>
@@ -311,19 +362,27 @@ export default function CheckoutClient() {
                 </div>
                 <button
                   type="button"
-                  onClick={() => navigator.clipboard?.writeText(pixKey)}
+                  onClick={() => navigator.clipboard?.writeText(pixPayload)}
                   className="rounded-xl bg-white/10 border border-white/20 px-3 py-2 text-sm hover:bg-white/15"
-                  title="Copiar chave"
+                  title="Copiar código Pix"
                 >
                   Copiar
                 </button>
               </div>
+
+              {/* Pix copia e cola */}
+              <textarea
+                readOnly
+                className="w-full rounded-xl bg-white/10 border border-white/20 p-2 text-xs"
+                value={pixPayload}
+              />
             </div>
           )}
 
           {/* Entrega */}
           <h3 className="mt-6 text-lg font-semibold">Forma de Entrega</h3>
           <div className="mt-3 space-y-2">
+            {/* Retirar no balcão */}
             <label className="flex items-center gap-3">
               <input
                 type="radio"
@@ -335,6 +394,21 @@ export default function CheckoutClient() {
               Retirar no balcão
             </label>
 
+            {/* Receber na mesa (somente se mesa existir) */}
+            {mesa && (
+              <label className="flex items-center gap-3">
+                <input
+                  type="radio"
+                  name="delivery"
+                  className="accent-[var(--teal,#20B7A6)]"
+                  checked={delivery === "mesa"}
+                  onChange={() => setDelivery("mesa")}
+                />
+                Receber na mesa
+              </label>
+            )}
+
+            {/* Entregar no endereço */}
             <label className="flex items-center gap-3">
               <input
                 type="radio"
@@ -368,20 +442,8 @@ export default function CheckoutClient() {
                 </button>
               </div>
             )}
-
-            {mesa && (
-              <label className="flex items-center gap-3">
-                <input
-                  type="radio"
-                  name="delivery"
-                  className="accent-[var(--teal,#20B7A6)]"
-                  checked={delivery === "mesa"}
-                  onChange={() => setDelivery("mesa")}
-                />
-                Receber na mesa
-              </label>
-            )}
           </div>
+
 
           {method === "pix" && (
             <div className="mt-4">

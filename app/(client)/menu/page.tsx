@@ -11,7 +11,7 @@ export default async function MenuHome({
   const sp = await searchParams;
   const mesaParam = (sp?.mesa ?? sp?.table) as string | string[] | undefined;
   const mesa = Array.isArray(mesaParam) ? mesaParam[0] : mesaParam;
-  const storeName = process.env.NEXT_PUBLIC_STORE_NAME ?? "Sua Loja";
+  const storeName = process.env.NEXT_PUBLIC_STORE_NAME ?? "Pastelaria e Bar da Záza";
 
   const mesaQS = mesa ? `&mesa=${encodeURIComponent(mesa)}` : "";
 
