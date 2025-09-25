@@ -60,7 +60,7 @@ export default function CheckoutPage() {
           </Link>
 
           <div className="text-center">
-            <div className="text-xs opacity-70">{mesa ? `Mesa ${mesa}` : ""}</div>
+            <div className="text-xs opacity-70">{mesa ? `Nome ${mesa}` : ""}</div>
             <h1 className="text-2xl font-bold leading-tight">Carrinho</h1>
           </div>
 

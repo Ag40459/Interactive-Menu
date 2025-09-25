@@ -188,7 +188,7 @@ export default function ReceiptPage() {
                         {snap.destino.tipo === "mesa" && (
                             <div>
                                 <span className="opacity-90">Identificação do Pedido: </span>
-                                <strong>Mesa {snap.destino.mesa}</strong>
+                                <strong>Nome {snap.destino.mesa}</strong>
                             </div>
                         )}
                         {snap.destino.tipo === "retirada" && (

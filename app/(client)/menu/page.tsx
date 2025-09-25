@@ -1,16 +1,59 @@
+"use client";
+
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 type SP = Record<string, string | string[] | undefined>;
 
-export default async function MenuHome({
+export default function MenuHome({
   searchParams,
 }: {
   searchParams?: SP | Promise<SP>;
 }) {
-  const sp = await searchParams;
-  const mesaParam = (sp?.mesa ?? sp?.table) as string | string[] | undefined;
+  const [resolvedSearchParams, setResolvedSearchParams] = useState<SP>({});
+  const [showModal, setShowModal] = useState(false);
+  const [modalName, setModalName] = useState("");
+  const [pendingRoute, setPendingRoute] = useState("");
+  const router = useRouter();
+
+  useEffect(() => {
+    const resolveParams = async () => {
+      const sp = await searchParams;
+      setResolvedSearchParams(sp || {});
+    };
+    resolveParams();
+  }, [searchParams]);
+
+  const mesaParam = (resolvedSearchParams?.mesa ?? resolvedSearchParams?.table) as string | string[] | undefined;
   const mesa = Array.isArray(mesaParam) ? mesaParam[0] : mesaParam;
   const storeName = process.env.NEXT_PUBLIC_STORE_NAME ?? "Pastelaria e Bar da Záza";
+
+  const handleCategoryClick = (category: 'food' | 'drinks') => {
+    if (!mesa) {
+      setPendingRoute(category);
+      setShowModal(true);
+    } else {
+      const mesaQS = `&mesa=${encodeURIComponent(mesa)}`;
+      router.push(`/catalog?tab=${category}${mesaQS}`);
+    }
+  };
+
+  const handleModalConfirm = () => {
+    if (modalName.trim()) {
+      const mesaQS = `&mesa=${encodeURIComponent(modalName.trim())}`;
+      router.push(`/catalog?tab=${pendingRoute}${mesaQS}`);
+      setShowModal(false);
+      setModalName("");
+      setPendingRoute("");
+    }
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false);
+    setModalName("");
+    setPendingRoute("");
+  };
 
   const mesaQS = mesa ? `&mesa=${encodeURIComponent(mesa)}` : "";
 
@@ -34,21 +77,19 @@ export default async function MenuHome({
         </div>
         {mesa ? (
           <div className="rounded-full px-4 py-2 text-sm font-semibold shadow-lg bg-white/10 backdrop-blur border border-white/30">
-            Mesa {mesa}
+            Nome {mesa}
           </div>
         ) : null}
       </header>
 
       {!mesa ? (
         <form method="GET" className="mx-auto mt-6 w-full max-w-screen-sm px-6">
-          <label className="sr-only" htmlFor="mesa">Número da mesa</label>
+          <label className="sr-only" htmlFor="mesa">Digite Seu Nome</label>
           <div className="flex items-center gap-3 rounded-full border border-white/40 bg-black/20 backdrop-blur px-5 py-3">
             <input
               id="mesa"
               name="mesa"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder="Número da mesa"
+              placeholder="Digite Seu Nome"
               className="flex-1 bg-transparent outline-none placeholder-white/80 text-white"
             />
             <button className="rounded-full px-4 py-2 text-sm font-semibold bg-white/20 hover:bg-white/30 transition">
@@ -62,8 +103,8 @@ export default async function MenuHome({
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight drop-shadow-md">Bem-vindo(a)</h2>
 
         <div className="w-full flex flex-col items-center gap-7">
-          <Link
-            href={`/catalog?tab=food${mesaQS}`}
+          <button
+            onClick={() => handleCategoryClick('food')}
             className="relative rounded-[9999px] py-6 px-8 text-xl md:text-2xl font-semibold shadow-2xl active:scale-[0.98] transition-transform"
             style={{
               width: 'calc(100% - 60px)',
@@ -78,10 +119,10 @@ export default async function MenuHome({
             <span className="absolute inset-0 -z-[1] rounded-[9999px]" style={{
               background: "linear-gradient(135deg, #ff8a4c 0%, #ff5f6d 100%)",
             }} />
-          </Link>
+          </button>
 
-          <Link
-            href={`/catalog?tab=drinks${mesaQS}`}
+          <button
+            onClick={() => handleCategoryClick('drinks')}
             className="relative rounded-[9999px] py-6 px-8 text-xl md:text-2xl font-semibold shadow-2xl active:scale-[0.98] transition-transform"
             style={{
               width: 'calc(100% - 60px)',
@@ -96,13 +137,51 @@ export default async function MenuHome({
             <span className="absolute inset-0 -z-[1] rounded-[9999px]" style={{
               background: "linear-gradient(135deg, #5AB0FF 0%, #2563eb 100%)",
             }} />
-          </Link>
+          </button>
         </div>
       </section>
 
       <footer className="mx-auto w-full max-w-screen-sm px-6 pb-10 mt-auto">
         <span className="text-xs opacity-60">© 2025 Pastelaria e Bar da Záza</span>
       </footer>
+
+      {/* Modal para entrada do nome */}
+      {showModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={handleModalCancel} />
+          <div className="relative bg-[var(--modal)] rounded-2xl p-6 w-full max-w-sm mx-auto shadow-2xl">
+            <h3 className="text-xl font-semibold text-[var(--brown)] mb-4 text-center">
+              Digite seu nome
+            </h3>
+            <p className="text-[var(--brown)] text-sm mb-6 text-center opacity-70">
+              Para continuar, precisamos do seu nome
+            </p>
+            <input
+              type="text"
+              value={modalName}
+              onChange={(e) => setModalName(e.target.value)}
+              placeholder="Seu nome"
+              className="w-full px-4 py-3 border border-[var(--terracotta)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--teal)] focus:border-transparent text-[var(--brown)] mb-6 bg-white/20"
+              autoFocus
+            />
+            <div className="flex gap-3">
+              <button
+                onClick={handleModalCancel}
+                className="flex-1 px-4 py-3 border border-[var(--terracotta)] text-[var(--brown)] rounded-lg hover:bg-[var(--rose)] transition"
+              >
+                Cancelar
+              </button>
+              <button
+                onClick={handleModalConfirm}
+                disabled={!modalName.trim()}
+                className="flex-1 px-4 py-3 bg-[var(--teal)] text-white rounded-lg hover:bg-[var(--terracotta)] disabled:bg-gray-300 disabled:cursor-not-allowed transition"
+              >
+                Confirmar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
