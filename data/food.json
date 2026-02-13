@@ -1,0 +1,274 @@
+{
+    "categories": [
+        {
+            "id": "pastel",
+            "label": "Pastéis"
+        },
+        {
+            "id": "snacks",
+            "label": "Porções"
+        },
+        {
+            "id": "combos",
+            "label": "Combos"
+        }
+    ],
+    "items": [
+        {
+            "id": "pastel-carne",
+            "name": "Pastel de Carne",
+            "description": "Massa crocante recheada com carne moída temperada.",
+            "price": 12.0,
+            "image": "/images/food/pastel-carne.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-queijo",
+            "name": "Pastel de Queijo",
+            "description": "Queijo derretido em massa leve e dourada.",
+            "price": 11.0,
+            "image": "/images/food/pastel-queijo.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-pura",
+            "name": "Pastel carne moída pura",
+            "description": "Recheio: carne moída.",
+            "price": 12.0,
+            "image": "/images/food/pastel-carne-moida-pura.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-mussarela",
+            "name": "Pastel carne moída, mussarela",
+            "description": "Recheio: carne moída, mussarela.",
+            "price": 14.0,
+            "image": "/images/food/pastel-carne-moida-mussarela.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-mixto-carne-milho-tomate-mussarela",
+            "name": "Pastel mixto de carne, milho, tomate, mussarela",
+            "description": "Recheio: carne moída, milho, tomate, mussarela.",
+            "price": 14.0,
+            "image": "/images/food/pastel-mixto-carne-milho-tomate-mussarela.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-bacon-milho-tomate-mussarela",
+            "name": "Pastel carne moída, bacon, milho, tomate, mussarela",
+            "description": "Recheio: carne moída, bacon, milho, tomate, mussarela.",
+            "price": 18.0,
+            "image": "/images/food/pastel-carne-moida-bacon-milho-tomate-mussarela.png",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-calabresa-milho-tomate-mussarela",
+            "name": "Pastel carne moída, calabresa, milho, tomate, mussarela",
+            "description": "Recheio: carne moída, calabresa, milho, tomate, mussarela.",
+            "price": 18.0,
+            "image": "/images/food/pastel-carne-moida-calabresa-milho-tomate-mussarela.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-chedder-mussarela-milho-tomate",
+            "name": "Pastel carne moída, chedder, mussarela, milho, tomate",
+            "description": "Recheio: carne moída, chedder, mussarela, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-carne-moida-chedder-mussarela-milho-tomate.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-catupiry-mussarela-milho-tomate",
+            "name": "Pastel carne moída, catupiry, mussarela, milho, tomate",
+            "description": "Recheio: carne moída, catupiry, mussarela, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-carne-moida-catupiry-mussarela-milho-tomate.png",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-carne-moida-queiroba-mussarela-milho-tomate",
+            "name": "Pastel carne moída, queiroba, mussarela, milho, tomate",
+            "description": "Recheio: carne moída, queiroba, mussarela, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-carne-moida-queiroba-mussarela-milho-tomate.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-desfiado-puro",
+            "name": "Pastel de frango puro desfiado",
+            "description": "Recheio: frango desfiado.",
+            "price": 12.0,
+            "image": "/images/food/pastel-frango-desfiado-puro.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-desfiado-mussarela",
+            "name": "Pastel frango desfiado, mussarela",
+            "description": "Recheio: frango desfiado, mussarela.",
+            "price": 14.0,
+            "image": "/images/food/pastel-frango-desfiado-mussarela.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-mixto-frango-mussarela-milho-tomate",
+            "name": "Pastel mixto frango desfiado, mussarela, milho, tomate",
+            "description": "Recheio: frango desfiado, mussarela, milho, tomate.",
+            "price": 14.0,
+            "image": "/images/food/pastel-mixto-frango-mussarela-milho-tomate.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-mussarela-queiroba-milho-tomate",
+            "name": "Pastel frango desfiado, mussarela, queiroba, milho, tomate",
+            "description": "Recheio: frango desfiado, mussarela, queiroba, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-frango-mussarela-queiroba-milho-tomate.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-mussarela-chedder-milho-tomate",
+            "name": "Pastel frango desfiado, mussarela, chedder, milho, tomate",
+            "description": "Recheio: frango desfiado, mussarela, chedder, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-frango-mussarela-chedder-milho-tomate.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-mussarela-catupiry-tomate-milho",
+            "name": "Pastel frango desfiado, mussarela, catupiry, tomate, milho",
+            "description": "Recheio: frango desfiado, mussarela, catupiry, tomate, milho.",
+            "price": 18.0,
+            "image": "/images/food/pastel-frango-mussarela-catupiry-tomate-milho.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-mussarela-bacon-milho-tomate",
+            "name": "Pastel frango desfiado, mussarela, bacon, milho, tomate",
+            "description": "Recheio: frango desfiado, mussarela, bacon, milho, tomate.",
+            "price": 18.0,
+            "image": "/images/food/pastel-frango-mussarela-bacon-milho-tomate.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-frango-mussarela-calabresa-tomate-milho",
+            "name": "Pastel frango desfiado, mussarela, calabresa, tomate, milho",
+            "description": "Recheio: frango desfiado, mussarela, calabresa, tomate, milho.",
+            "price": 18.0,
+            "image": "/images/food/pastel-frango-mussarela-calabresa-tomate-milho.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-pizza-mussarela-presunto-milho-tomate-oregano",
+            "name": "Pastel pizza mussarela, presunto, milho, tomate e orégano",
+            "description": "Recheio: mussarela, presunto, milho, tomate, orégano.",
+            "price": 15.0,
+            "image": "/images/food/pastel-pizza-mussarela-presunto-milho-tomate-oregano.webp",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-4-queijo",
+            "name": "Pastel 4 queijo",
+            "description": "Recheio de quatro queijos.",
+            "price": 15.0,
+            "image": "/images/food/pastel-4-queijo.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-banana-canela",
+            "name": "Pastel banana e canela",
+            "description": "Recheio: banana e canela.",
+            "price": 15.0,
+            "image": "/images/food/pastel-banana-e-canela.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "pastel-mixtao-carne-frango-azeitona-tomate-milho-bacon-calabresa-catupiry-mussarela",
+            "name": "Pastel mixtão carne moída, frango desfiado, azeitona, tomate, milho, bacon, calabresa, catupiry, mussarela",
+            "description": "Recheio: carne moída, frango desfiado, azeitona, tomate, milho, bacon, calabresa, catupiry, mussarela.",
+            "price": 26.0,
+            "image": "/images/food/pastel-mixtao-carne-frango-azeitona-tomate-milho-bacon-calabresa-catupiry-mussarela.jpg",
+            "category": "pastel"
+        },
+        {
+            "id": "batata-frita",
+            "name": "Batata Frita",
+            "description": "Porção sequinha e crocante.",
+            "price": 20.0,
+            "image": "/images/food/batata-frita.jpg",
+            "category": "snacks"
+        },
+        {
+            "id": "batata-frita-mussarela",
+            "name": "Batata frita com mussarela",
+            "description": "Porção de batata frita gratinada com mussarela.",
+            "price": 25.0,
+            "image": "/images/food/batata-frita-mussarela.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "batata-frita-cheddar-bacon",
+            "name": "Batata frita com cheddar e bacon",
+            "description": "Porção de batata frita com cheddar e bacon.",
+            "price": 30.0,
+            "image": "/images/food/batata-frita-cheddar-bacon.jpg",
+            "category": "snacks"
+        },
+        {
+            "id": "tilapia-postas-alface-tomate",
+            "name": "Tilápia em postas",
+            "description": "Acompanha alface e tomate.",
+            "price": 38.0,
+            "image": "/images/food/tilapia-postas-alface-tomate.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "file-tilapia-500g-alface-tomate",
+            "name": "Filé de tilápia 500 g",
+            "description": "Acompanha alface e tomate.",
+            "price": 55.0,
+            "image": "/images/food/file-tilapia-500g-alface-tomate.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "frango-passarinho-cebola-mandioca-tomate-alface",
+            "name": "Frango a passarinho",
+            "description": "Com cebola, mandioca, tomate e alface.",
+            "price": 30.0,
+            "image": "/images/food/frango-passarinho-cebola-mandioca-tomate-alface.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "tabua-de-frios-mussarela-presunto-ovo-codorna-calabresa-azeitona-tomate-alface",
+            "name": "Tábua de frios",
+            "description": "Mussarela, presunto, ovo de codorna, calabresa, azeitona, tomate, alface.",
+            "price": 40.0,
+            "image": "/images/food/tabua-de-frios-mussarela-presunto-ovo-codorna-calabresa-azeitona-tomate-alface.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "calabresa-acebolada-alface-tomate",
+            "name": "Calabresa acebolada",
+            "description": "Acompanha alface e tomate.",
+            "price": 25.0,
+            "image": "/images/food/calabresa-acebolada-alface-tomate.webp",
+            "category": "snacks"
+        },
+        {
+            "id": "figado-acebolado-tomate-mandioca-alface-jilo",
+            "name": "Fígado acebolado",
+            "description": "Com tomate, mandioca, alface e jiló.",
+            "price": 25.0,
+            "image": "/images/food/figado-acebolado-tomate-mandioca-alface-jilo.jpg",
+            "category": "snacks"
+        },
+        {
+            "id": "combo-pasteis-7-unidades",
+            "name": "Pastéis (7 unidades)",
+            "description": "Porção com 7 unidades.",
+            "price": 25.0,
+            "image": "/images/food/combo-pasteis-7-unidades.webp",
+            "category": "combos"
+        }
+    ]
+}
