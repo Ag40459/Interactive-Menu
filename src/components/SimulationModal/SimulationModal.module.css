@@ -1,0 +1,94 @@
+@import url('./SimulationForm.module.css');
+@import url('./SimulationResults.module.css');
+@import url('../PaymentIntentionModal/PaymentIntentionModal.module.css');
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+      background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  transition: opacity 0.3s ease;
+  pointer-events: all;
+}
+
+.modalContainer {
+  background-color: var(--modal-bg);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 800px;
+  max-height: 87%;
+  margin-top: 2rem;
+  position: relative;
+  transform: translateY(0);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.bodyScrollLock {
+  overflow: hidden !important;
+  touch-action: none !important;
+}
+
+[data-theme="dark"] .modalContent::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes modalFadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+}
+
+.modalOverlay.entering {
+  animation: modalBackdropIn 0.3s forwards;
+}
+
+.modalOverlay.exiting {
+  animation: modalBackdropOut 0.3s forwards;
+}
+ 
+.modalContainer.entering {
+  animation: modalFadeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.modalContainer.exiting {
+  animation: modalFadeOut 0.3s ease forwards;
+}
+
+@keyframes modalBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalBackdropOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

@@ -1,0 +1,95 @@
+.solarEnergySimulator {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+   background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  min-height: 62vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.solarEnergySimulator::before {
+  content: "";
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 300px;
+  min-height: 62vh; 
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect x=\"10\" y=\"10\" width=\"35\" height=\"35\" fill=\"var(--pattern-fill-color-encoded, %23004d25)\" opacity=\"0.2\"/><rect x=\"55\" y=\"10\" width=\"35\" height=\"35\" fill=\"var(--pattern-fill-color-encoded, %23004d25)\" opacity=\"0.2\"/><rect x=\"10\" y=\"55\" width=\"35\" height=\"35\" fill=\"var(--pattern-fill-color-encoded, %23004d25)\" opacity=\"0.2\"/><rect x=\"55\" y=\"55\" width=\"35\" height=\"35\" fill=\"var(--pattern-fill-color-encoded, %23004d25)\" opacity=\"0.2\"/></svg>");
+  background-size: 100px 100px;
+  opacity: 0.1; /* Reduzida opacidade para ser mais sutil */
+  z-index: 1;
+  pointer-events: none; /* Não interferir com cliques */
+}
+
+.decorativeSun {
+  position: absolute;
+  top: 80px;
+  right: 15%;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  /* Usar variável de tema para cor do sol */
+  background-color: var(--accent-color-green, #4cd137);
+  /* Usar variável para sombra, se existir uma apropriada */
+  box-shadow: 0 0 40px var(--accent-glow-color, rgba(76, 209, 55, 0.6)); 
+  z-index: 1;
+  pointer-events: none; /* Não interferir com cliques */
+}
+
+.decorativeSun::after {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: -15px;
+  right: -15px;
+  bottom: -15px;
+  /* Usar variável de tema para a borda */
+  border: 3px solid var(--border-highlight-color, rgba(255, 255, 255, 0.3)); 
+  border-radius: 50%;
+  animation: pulse 2.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+}
+
+/* Ajustes responsivos (Mantidos) */
+@media (max-width: 768px) {
+  .solarEnergySimulator {
+    padding: 0;
+    min-height: 62vh;
+  }
+  .decorativeSun {
+    width: 60px;
+    height: 60px;
+    top: 60px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .solarEnergySimulator {
+    padding: 0 20px;
+    min-height: 62vh;
+  }
+}
+
+@media (min-width: 1201px) {
+  .solarEnergySimulator {
+    padding: 0 40px;
+    min-height: 62vh;
+  }
+}
+

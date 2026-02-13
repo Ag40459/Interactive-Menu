@@ -1,0 +1,68 @@
+ .dark-theme {
+  --accent-color: rgb(124, 77, 255);
+  --accent-color-gold: rgb(255, 179, 0);
+  --accent-color-green: rgb(102, 187, 106);
+  --background-color: rgb(18, 18, 18);
+  --border-color: rgb(51, 51, 51);
+  --card-bg: var(--card-bg-dark);
+  --card-bg-dark: rgba(255, 255, 255, 0.05);
+  --card-bg-light: rgba(76, 175, 80, 0.05);
+  --card-bg-color: rgb(255, 255, 255);
+  --card-description-align: justify;
+  --card-icon-fill: var(--text-color);
+  --divider-color: rgb(44, 44, 44);
+  --error-color: rgb(255, 64, 129);
+  --footer-bg-color: rgb(18, 18, 18);
+  --footer-text-color: rgb(224, 224, 224);
+  --info-color: rgb(64, 196, 255);
+  --input-bg: rgb(44, 44, 44);
+  --input-border: rgb(66, 66, 66);
+  --liner-division-color: rgba(239, 231, 231, 0.991);
+  --link-color: rgb(144, 202, 249);
+  --modal-bg: rgb(30, 30, 30);
+  --navbar-bg-color: rgb(30, 30, 30);
+  --navbar-text-color: rgb(224, 224, 224);
+  --primary-bg-color: rgb(250, 250, 250);
+  --primary-color: rgb(33, 150, 243);
+  --primary-color-dark: rgb(25, 118, 210);
+  --primary-color-light: rgb(100, 181, 246);
+  --resend-button-color: rgb(144, 202, 249);
+  --resend-button-hover: rgb(100, 181, 246);
+  --resend-link-color: rgb(144, 202, 249);
+  --resend-link-hover: rgb(100, 181, 246);
+  --secondary-bg-color: rgb(30, 30, 30);
+  --secondary-color: rgb(158, 158, 158);
+  --secondary-color-dark: rgb(0, 151, 167);
+  --secondary-color-light: rgb(77, 208, 225);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 5px 15px rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.3);
+  --submit-button-bg: rgb(102, 187, 106);
+  --submit-button-text: rgb(18, 18, 18);
+  --success-color: rgb(0, 229, 255);
+  --text-color: rgb(224, 224, 224);
+  --text-light: rgb(117, 117, 117);
+  --text-secondary: var(--text-secondary-dark);
+  --text-secondary-dark: rgba(255, 255, 255, 0.85);
+  --text-secondary-light: rgba(0, 0, 0, 0.75);
+  --text-secondary-color: rgb(189, 189, 189);
+  --warning-color: rgb(255, 171, 64);
+
+    --gradient-primary-start: var(--primary-color-light); /* Azul claro */
+  --gradient-primary-end: var(--accent-color); /* Roxo */
+  --gradient-secondary-start: var(--accent-color); /* Roxo */
+  --gradient-secondary-end: var(--accent-color-light); /* Roxo mais claro */
+  --gradient-whatsapp-start: var(--accent-color); /* Roxo */
+  --gradient-whatsapp-end: var(--accent-color-light); /* Roxo mais claro */
+  --gradient-house-start: var(--primary-color-light); /* Azul claro */
+  --gradient-house-end: var(--accent-color); /* Roxo */
+  --accent-color-purple: var(--accent-color); /* Roxo */
+  --success-color-green: var(--accent-color-green); /* Verde */
+  --footer-bg-dark: var(--background-color); /* Fundo escuro */
+}
+
+body.dark-theme {
+  --dot-color-expanded: rgba(255, 179, 0, 0.6); 
+  --dot-color-contracted: rgba(255, 179, 0, 0.2); 
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}

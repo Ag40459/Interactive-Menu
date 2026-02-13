@@ -1,0 +1,171 @@
+/* About Section Layout & Image Styles */
+
+/* Layout & General */
+.aboutSection {
+  position: relative;
+  padding: 80px 0;
+  background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  color: var(--text-color, #333);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.aboutSection.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.aboutContainer {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+  color: var(--text-color, #333);
+}
+
+.titleHighlight {
+  color: var(--accent-color-green, #28a745);
+  position: relative;
+}
+
+.titleHighlight::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent-color-green, #28a745);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: expandLine 1.5s forwards 0.5s; /* Animation defined in Components CSS */
+}
+
+.aboutContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .aboutContent {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.imageWrapper {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.imageWrapper:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.aboutImage {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.imageWrapper:hover .aboutImage {
+  transform: scale(1.05);
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.6));
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.imageWrapper:hover .imageOverlay {
+  opacity: 1;
+}
+
+.overlayContent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+}
+
+.overlayIconSvg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+.overlayText {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.imageCaption {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-secondary, #666);
+  font-style: italic;
+  text-align: center;
+}
+
+.imageFacts {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  padding: 20px;
+  background-color: var(--card-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+      background-color: color-mix(in srgb, var(--card-bg), transparent 69%);
+
+}
+
+.imageFacts:hover {
+  transform: translateY(-5px);
+}
+
+.factItem {
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.factItem:hover {
+  transform: scale(1.1);
+}
+
+.factValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color-green, #28a745);
+  margin-bottom: 5px;
+}
+
+.factLabel {
+  font-size: 0.9rem;
+  color: var(--text-secondary, #666);
+}
+

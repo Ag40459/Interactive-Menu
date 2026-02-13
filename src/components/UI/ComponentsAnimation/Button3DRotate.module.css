@@ -1,0 +1,126 @@
+@keyframes rotateButton {
+  0% {
+    transform: perspective(1000px) rotateY(0deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(360deg);
+  }
+}
+
+.button-3d {
+  position: fixed;
+  bottom: 2rem;
+  left: 92%;
+  width: 55px;
+  height: 180px;
+  transition: 4s;
+  transform-style: preserve-3d;
+  transform: perspective(1000px) rotateY(0deg);
+  cursor: pointer;
+  text-decoration: none;
+  z-index: 100;
+}
+
+.button-3d:hover {
+  transform: perspective(1000px) rotateY(360deg);
+}
+
+.button-3d span {
+  position: absolute;
+  margin-top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color, #212121);
+  background: rgba(255, 255, 255, 0.2);
+  font-family: var(--font-family-sans, sans-serif);
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 16px;
+  letter-spacing: 1px;
+  transition: 0.3s;
+  border: 1px solid var(--primary-color, #FFB400);
+  box-sizing: border-box;
+  box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.1);
+  backface-visibility: hidden;
+  writing-mode: vertical-lr;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+}
+
+.button-3d:hover span {
+  color: var(--background-color, #FFFFFF); 
+  
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary-color), white 100%) 0%,
+      var(--primary-color) 45%,
+      color-mix(in srgb, var(--primary-color), black 90%) 100%
+    );
+
+  border-color: var(--primary-color, #FF9500);
+}
+
+.button-3d span:nth-child(1) {
+  transform: rotateY(0deg) translateZ(27px) rotate(180deg);
+}
+
+.button-3d span:nth-child(2) {
+  transform: rotateY(90deg) translateZ(27px) rotate(180deg);
+}
+
+.button-3d span:nth-child(3) {
+  transform: rotateY(180deg) translateZ(27px) rotate(180deg);
+}
+
+.button-3d span:nth-child(4) {
+  transform: rotateY(270deg) translateZ(27px) rotate(180deg);
+}
+
+@media (max-width: 768px) {
+  .button-3d {
+    display: inline-block;
+    position: fixed;
+     bottom: 20px;
+  left: 89%;
+    width: 50px;
+    height: 160px;
+    animation: rotateButton 4s linear infinite; 
+  }
+  
+  .button-3d span {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (max-width: 580px) {
+  .button-3d {
+    width: 45px;
+    height: 140px;
+  }
+  
+  .button-3d span {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button-3d {
+    width: 45px;
+    height: 140px;
+    bottom: 3rem;
+    left:83%;
+  }
+  
+  .button-3d span {
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+}
+

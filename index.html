@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/logo.png" />
+   
+   <script type="text/javascript">
+  // Verifica se há um caminho armazenado na sessão
+  (function() {
+    const redirectPath = sessionStorage.getItem('redirectPath');
+    if (redirectPath && redirectPath !== '/') {
+      // Remove o item da sessão
+      sessionStorage.removeItem('redirectPath');
+      // Atualiza o histórico do navegador
+      window.history.replaceState(null, null, redirectPath);
+    }
+  })();
+</script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ecolote</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

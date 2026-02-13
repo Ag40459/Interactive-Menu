@@ -1,0 +1,316 @@
+/* SimulationForm_minimal.module.css */
+
+/* --- Header Adjustments --- */
+.modalHeader {
+  position: relative;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+  /* Reduced height significantly (approx 85% reduction from 180px) */
+  min-height: 30px; 
+  padding-bottom: 5px; /* Reduced padding */
+  overflow: hidden;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Keep vertical alignment */
+}
+
+.modalIllustration {
+  /* Hide the illustration if the header is too small, or scale it down */
+  /* Option 1: Hide */
+  /* display: none; */
+  /* Option 2: Scale down (adjust transform as needed) */
+  transform: scale(0.3); 
+  margin-top: -40px; /* Adjust positioning if scaling */
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 5;
+}
+
+.modalCloseButton {
+  position: absolute;
+  top: 10px; /* Adjusted position due to smaller header */
+  right: 15px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 30px; /* Slightly smaller close button */
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 20px; /* Smaller icon */
+  color: white;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.modalCloseButton:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg) scale(1.1);
+}
+
+/* --- Content & Form Adjustments --- */
+.modalContent {
+  padding: 25px; /* Slightly reduced padding */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) rgba(0, 0, 0, 0.05);
+  overscroll-behavior: contain;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar styles (kept original) */
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.modalContent::-webkit-scrollbar-track {
+  background: rgba(var(--primary-color-rgb), 0.05);
+  border-radius: 4px;
+}
+.modalContent::-webkit-scrollbar-thumb {
+  background: var(--primary-color);
+  border-radius: 4px;
+  transition: background 0.3s ease;
+}
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color-dark);
+}
+
+.modalTitle {
+  font-size: 2rem; /* Slightly smaller title */
+  color: var(--accent-color-green);
+  text-align: center;
+  margin-top: 15px; /* Reduced margin */
+  margin-bottom: 10px;
+  font-weight: 700;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.modalSubtitle {
+  font-size: 1rem; /* Slightly smaller subtitle */
+  color: var(--text-color);
+  text-align: center;
+  margin-bottom: 25px;
+  animation: fadeInUp 0.6s ease forwards 0.1s;
+}
+
+.formGroup {
+  position: relative;
+  margin-bottom: 20px; /* Reduced margin */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  animation: fadeInUp 0.6s ease forwards;
+  animation-delay: calc(0.1s * var(--animation-order, 1));
+}
+
+/* .formLabel removed as labels are not used */
+
+.formInput,
+.simulatorInput {
+  width: 100%;
+  padding: 14px 18px; /* Adjusted padding */
+  border: 1px solid var(--border-color); /* Slightly thinner border */
+  border-radius: 10px; /* Slightly smaller radius */
+  font-size: 0.95rem; /* Slightly smaller font */
+  color: var(--text-color);
+  background-color: var(--input-bg);
+  transition: all 0.3s ease;
+}
+
+.simulatorInput {
+  padding-left: 40px; /* Adjusted padding for currency symbol */
+}
+
+.formInput::placeholder,
+.simulatorInput::placeholder {
+  color: var(--text-color-light); /* Lighter placeholder text */
+  opacity: 0.8;
+}
+
+.formInput:focus,
+.simulatorInput:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1); /* Slightly smaller focus ring */
+  /* transform: translateY(-2px); - Removed focus transform for minimalism */
+}
+
+.inputGroup {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.currencySymbol {
+  position: absolute;
+  left: 18px; /* Adjusted position */
+  font-weight: 500;
+  color: var(--text-color);
+  z-index: 1;
+  font-size: 0.95rem; /* Match input font size */
+}
+
+.radioGroup {
+  display: flex;
+  justify-content: space-between; /* Space out buttons */
+  gap: 8px; /* Reduced gap */
+  margin-bottom: 10px;
+}
+
+.radioOption {
+  flex: 1; /* Cada opção ocupa o mesmo espaço */
+  min-width: 0; /* Evita quebra indesejada */
+  transition: transform 0.3s ease;
+}
+
+.radioOption:hover {
+  transform: translateY(-2px); /* Reduced hover effect */
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 15px; /* Adjusted padding */
+  border: 1px solid var(--border-color); /* Thinner border */
+  border-radius: 8px; /* Smaller radius */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 0.9rem; /* Slightly smaller font */
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.radioInput {
+  position: absolute;
+  opacity: 0;
+}
+
+.radioInput:checked + .radioLabel {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+  /* transform: scale(1.05); - Removed scale effect */
+  box-shadow: 0 3px 10px rgba(var(--primary-color-rgb), 0.2); /* Reduced shadow */
+}
+
+/* --- Submit Button --- */
+.submitButton {
+  width: 100%;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-color-dark) 100%);
+  color: white;
+  border: none;
+  border-radius: 10px; /* Match input radius */
+  padding: 14px; /* Match input padding */
+  font-size: 1rem; /* Adjusted font size */
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 15px; /* Reduced margin */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(var(--primary-color-rgb), 0.25);
+  animation: fadeInUp 0.6s ease forwards 0.5s;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(var(--primary-color-rgb), 0.35);
+}
+
+.submitButton:active {
+  transform: translateY(-1px);
+}
+
+/* Removed hover shine effect for minimalism */
+/* .submitButton::after { ... } */
+
+/* --- Messages --- */
+.loadingMessage, .errorMessage {
+  margin-top: 8px; /* Adjusted margin */
+  font-size: 0.85rem; /* Smaller font */
+  text-align: center; /* Center align messages */
+}
+
+.loadingMessage {
+  color: var(--info-color);
+  animation: pulse 1.5s infinite;
+}
+
+.errorMessage {
+  color: var(--error-color);
+  animation: shake 0.5s ease-in-out;
+}
+
+/* --- Animations (kept original) --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 480px) {
+  .modalContent {
+    padding: 20px;
+  }
+  .modalTitle {
+    font-size: 1.8rem;
+  }
+  .modalSubtitle {
+    font-size: 0.9rem;
+  }
+  .formInput,
+  .simulatorInput {
+    font-size: 0.9rem;
+    padding: 12px 15px;
+  }
+  .simulatorInput {
+    padding-left: 35px;
+  }
+  .currencySymbol {
+    left: 15px;
+    font-size: 0.9rem;
+  }
+  .radioGroup {
+    /* Stack buttons vertically on very small screens if needed */
+    /* flex-direction: column; */ 
+    gap: 6px;
+  }
+  .radioLabel {
+    font-size: 0.85rem;
+    padding: 9px 12px;
+  }
+  .submitButton {
+    padding: 12px;
+    font-size: 0.95rem;
+  }
+}
+

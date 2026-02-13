@@ -1,0 +1,70 @@
+.animatedBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.solarPattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpath d='M30 5L35 10L30 15L25 10L30 5ZM5 30L10 25L15 30L10 35L5 30ZM30 45L25 50L30 55L35 50L30 45ZM45 30L50 35L55 30L50 25L45 30ZM10 10L20 15L15 20L10 10ZM40 15L50 10L45 20L40 15ZM50 50L40 45L45 40L50 50ZM20 45L10 50L15 40L20 45Z' fill='%2328a745'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.05;
+  animation: rotateSolarPattern 100s linear infinite;
+}
+
+.solarParticles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #f8f9fa; 
+  border-radius: 50%;
+  bottom: -10px;
+  opacity: 0;
+  animation: floatParticle 8s ease-out infinite;
+}
+
+@keyframes rotateSolarPattern {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+  10%, 90% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(-100vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .solarPattern,
+  .particle {
+    animation: none;
+  }
+  .particle {
+     display: none;
+  }
+}

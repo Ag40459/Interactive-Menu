@@ -1,0 +1,278 @@
+.simulationSection {
+  width: 100%;
+  padding: 60px 20px; 
+  position: relative;
+  overflow: hidden;
+}
+
+.simulationContainer {
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  max-width: 800px; 
+}
+
+.simulationContent {
+      background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color, rgba(0, 0, 0, 0.1)); 
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+.simulationTitle {
+  font-size: 2.5rem;
+  color: var(--text-color, #212121); 
+  text-align: center;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-family: var(--font-family-sans);
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.simulationSubtitle {
+  font-size: 1.2rem;
+  color: var(--text-secondary, #757575); 
+  text-align: center;
+  margin-bottom: 30px;
+  font-family: var(--font-family-sans);
+  animation: fadeInUp 0.6s ease forwards 0.1s;
+}
+
+.simulationForm {
+  animation: fadeInUp 0.6s ease forwards 0.2s;
+}
+
+.formGroup {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.formLabel {
+  display: block;
+  margin-bottom: 15px;
+  /* Usar variável de texto */
+  color: var(--text-color, #212121);
+  font-weight: 500;
+  font-size: 1.1rem;
+  font-family: var(--font-family-sans);
+  text-align: center;
+}
+
+.sliderContainer {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  /* Usar variável para fundo do slider track */
+  background-color: var(--input-bg, rgba(0, 0, 0, 0.1)); 
+  border-radius: 4px;
+  margin-bottom: 25px;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  opacity: 0; /* Mantido invisível, interação via JS */
+  cursor: pointer;
+  z-index: 2;
+  margin: 0;
+}
+
+.sliderProgress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 8px;
+  /* Usar cor de acento para progresso */
+  background-color: var(--accent-color-green, #43A047);
+  border-radius: 4px;
+  transition: width 0.1s ease; /* Transição mais rápida */
+}
+
+.sliderProgress::after { /* Thumb do slider */
+  content: "";
+  position: absolute;
+  right: -10px; /* Ajustar para centralizar no fim da barra */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  /* Usar cor de acento */
+  background-color: var(--accent-color-green, #43A047);
+  border-radius: 50%;
+  /* Usar variável de sombra */
+  box-shadow: var(--shadow-sm, 0 2px 5px rgba(0, 0, 0, 0.2));
+  transition: transform 0.2s ease;
+}
+
+.slider:hover + .sliderProgress::after,
+.slider:active + .sliderProgress::after {
+  transform: translateY(-50%) scale(1.2);
+}
+
+.currencyInputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.currencyPrefix {
+  position: absolute;
+  left: 20px;
+  /* Usar variável de texto secundário */
+  color: var(--text-secondary, #757575);
+  font-size: 1.1rem;
+  font-weight: 500;
+  z-index: 1;
+  font-family: var(--font-family-sans);
+  pointer-events: none; /* Não interferir no clique do input */
+}
+
+.formInput {
+  width: 100%;
+  padding: 15px 20px 15px 55px;
+  /* Usar variáveis de input */
+  border: 2px solid var(--input-border, #E0E0E0);
+  border-radius: 50px;
+  font-size: 1.2rem;
+  color: var(--text-color, #212121);
+  background-color: var(--input-bg, #F5F5F5);
+  transition: all 0.3s ease;
+  font-family: var(--font-family-sans);
+  box-shadow: var(--shadow-sm);
+}
+
+.formInput:focus {
+  outline: none;
+  border-color: var(--accent-color-gold, #FFC107);
+  /* Usar variável para sombra de foco */
+  box-shadow: 0 0 0 4px var(--focus-shadow-color, rgba(255, 193, 7, 0.2)); 
+  transform: translateY(-2px);
+}
+
+.simulateButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0; 
+    background-color: transparent;
+  border: 2px solid var(--primary-color); /* Thicker border */
+    color: var(--primary-color); 
+  border-radius: 50px;
+  padding: 16px 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  font-family: var(--font-family-sans);
+}
+
+.simulateButton:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+    background-color: var(--primary-color); 
+  color: var(--text-on-accent-green, white);
+}
+
+.simulateButton:active {
+  transform: translateY(-1px);
+}
+
+/* Efeito de brilho no hover (opcional, verificar se funciona com temas) */
+.simulateButton::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    var(--highlight-color, rgba(255, 255, 255, 0.3)) 50%, /* Usar variável */
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  transition: transform 0.7s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.simulateButton:hover::after {
+  transform: rotate(30deg) translate(100%, 100%);
+  opacity: 1;
+}
+
+.buttonText {
+  margin-right: 10px;
+}
+
+.buttonIcon {
+  font-size: 1.2rem;
+  transition: transform 0.3s ease;
+}
+
+.simulateButton:hover .buttonIcon {
+  transform: translateX(5px);
+}
+
+/* Remover animação de pulso de energia ou adaptá-la com variáveis */
+.energyPulseContainer {
+  display: none; /* Removido para simplificar e evitar conflito de tema */
+}
+
+/*
+.energyPulseContainer { ... }
+.energyPulseOuter, .energyPulseMiddle, .energyPulseInner { ... }
+@keyframes pulse { ... }
+@keyframes glow { ... }
+*/
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .simulationContent {
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+  .simulationTitle {
+    font-size: 1.8rem;
+  }
+  .simulationSubtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .simulationTitle {
+    font-size: 2.2rem;
+  }
+}
+
+/* Preferências de movimento reduzido (Mantida) */
+@media (prefers-reduced-motion: reduce) {
+  /* ... */
+}
+

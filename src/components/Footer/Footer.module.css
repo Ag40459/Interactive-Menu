@@ -1,0 +1,56 @@
+.footer {
+    background-color: color-mix(in srgb, var(--background-color), transparent 10%);
+    color: var(--text-color, black);
+  padding: 20px;
+  text-align: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+/* Estilização do link de email */
+.contact {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.emailLink {
+  display: flex;
+  align-items: center;
+  color: var(--text-color, black);
+  text-decoration: none;
+  font-size: 1em;
+  gap: 8px;
+  transition: color 0.3s;
+}
+
+.emailLink:hover {
+  color: #ff9900; /* cor de destaque ao passar o mouse */
+}
+
+/* Ícone de email */
+.emailIcon {
+  font-size: 1.2em;
+}
+
+/* Container dos ícones sociais */
+.socialLinks {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/* Ícones sociais */
+.socialIcon {
+  font-size: 1.6em;
+    color: var(--text-color, black);
+  transition: color 0.3s;
+}
+
+.socialIcon:hover {
+  color: #ff9900;
+}

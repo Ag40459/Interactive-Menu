@@ -1,0 +1,394 @@
+.contactSection {
+  position: relative;
+  padding: 80px 0;
+  overflow: hidden;
+    background-color: color-mix(in srgb, var(--background-color), transparent 50%);
+  transition: opacity 0.5s ease;
+}
+
+.wave {
+  background: url("data:image/svg+xml;utf8,<svg viewBox=\"0 0 1200 120\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18.17 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z\" fill=\"var(--accent-color-green-url-encoded, %2328a745)\" opacity=\".15\"/></svg>");
+  background-size: 1200px 100%;
+  animation: waveAnimation 15s linear infinite;
+}
+
+.particle {
+  background: radial-gradient(circle, var(--primary-color-light-rgba, rgba(255, 215, 0, 0.8)) 0%, var(--primary-color-transparent-rgba, rgba(255, 215, 0, 0)) 70%);
+}
+
+.contactContainer {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px; /* Aumentar margem para separar do grid */
+  color: var(--text-color, black); /* Usando variável */
+  position: relative;
+  /* display: inline-block; Removido para centralizar melhor */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.visible .sectionTitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.titleHighlight {
+  color: var(--accent-color-green, #28a745);
+  position: relative;
+}
+
+.titleHighlight::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%; /* Centralizar a linha */
+  transform: translateX(-50%) scaleX(0);
+  width: 80px; /* Largura fixa para a linha */
+  height: 3px;
+  background: var(--accent-color-green, #28a745);
+  transform-origin: center; /* Origem no centro */
+  animation: expandLine 1.5s forwards 0.5s;
+}
+
+/* Grid Principal */
+.contactContent {
+  display: grid;
+  /* Por padrão (mobile-first), é uma coluna */
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+/* Coluna de Ação (Formulário/Card de Pré-Cadastro) */
+.contactAction {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+  width: 100%; /* Ocupa toda a largura no mobile */
+  max-width: 600px; /* Limita largura no mobile */
+  margin: 0 auto; /* Centraliza no mobile */
+}
+
+.visible .contactAction {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.actionCard {
+  /* Usar variável de tema para o fundo do card */
+  background: var(--card-bg, #fff); /* Corrigido para usar variável de tema */
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px var(--shadow-color-light, rgba(0, 0, 0, 0.1));
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.actionCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  /* Usar variáveis para o gradiente */
+  background: linear-gradient(90deg, var(--accent-color-green, #28a745) 0%, var(--accent-color-gold, #E6B800) 50%);
+
+}
+
+.cardContent {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: color-mix(in srgb, var(--background-color), transparent 50%); 
+}
+
+
+.cardTitle {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: var(--accent-color-green, #28a745);
+}
+
+.cardText {
+  font-size: 1rem;
+  color: var(--text-color, black); /* Usar variável */
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.benefitsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.benefitItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  color: var(--text-color, #333);
+  transition: transform 0.3s ease;
+}
+
+.benefitItem span {
+  color: var(--text-color, black); /* Garantir que o span use a variável */
+}
+
+.benefitItem:hover {
+  transform: translateX(5px);
+}
+
+.benefitCheck {
+  width: 24px;
+  height: 24px;
+  background-color: var(--accent-color-green, #28a745);
+  color: var(--text-on-accent, white); /* Usar variável para texto sobre cor de acento */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+/* Botão */
+.reserveButton {
+  margin-top: auto;
+  padding: 16px 30px;
+  /* Usar variáveis */
+  background: linear-gradient(135deg, var(--accent-color-green, #28a745) 0%, var(--primary-color-dark, #218838) 100%);
+  color: var(--text-on-accent, white);
+  border: none;
+  border-radius: 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.energyButton::before {
+  /* ... gradiente com variáveis ... */
+  background: linear-gradient(45deg, 
+    var(--accent-color-green, #28a745) 0%, 
+    var(--accent-color-gold, #E6B800) 50%, 
+    var(--accent-color-green, #28a745) 100%);
+  /* ... */
+}
+
+.energyButton::after {
+   /* ... gradiente com variáveis ... */
+  background: linear-gradient(135deg, var(--accent-color-green, #28a745) 0%, var(--primary-color-dark, #218838) 100%);
+  /* ... */
+}
+
+.reserveButton:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px var(--shadow-color-medium, rgba(40, 167, 69, 0.3));
+}
+
+/* --- Conteúdo Exclusivo para Desktop --- */
+.contactInfoDesktopOnly {
+  display: none; /* Escondido por padrão (mobile) */
+  flex-direction: column;
+  gap: 30px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s;
+}
+
+.visible .contactInfoDesktopOnly {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.desktopInfoCard {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 25px;
+  background-color: var(--card-bg, #fff);
+  border-radius: 12px;
+  box-shadow: 0 5px 15px var(--shadow-color-light, rgba(0, 0, 0, 0.05));
+  border-left: 5px solid var(--accent-color-green, #28a745);
+}
+
+.desktopInfoIcon {
+  font-size: 2.5rem; /* Ícone maior */
+  color: var(--accent-color-green, #28a745);
+  margin-top: 5px;
+}
+
+.desktopInfoText h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+  color: var(--text-color, #333);
+  text-align: justify;
+}
+
+.desktopInfoText p {
+  font-size: 1rem;
+  color: var(--text-secondary, #666);
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* Rodapé */
+.contactFooter {
+  text-align: center;
+  margin-top: 60px; /* Mais espaço */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease 0.6s, transform 0.8s ease 0.6s;
+}
+
+.visible .contactFooter {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tagline {
+  font-size: 1.2rem;
+      color: var(--text-color, black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* --- Media Query para Desktop --- */
+@media (min-width: 992.1px) {
+  .contactContent {
+    grid-template-columns: 1fr 1fr; /* Duas colunas */
+    align-items: start; /* Alinha itens no topo */
+    gap: 50px; /* Aumenta o espaçamento */
+  }
+
+  .contactInfoDesktopOnly {
+    display: flex; /* Mostra a coluna da esquerda */
+  }
+
+  .contactAction {
+    max-width: none; /* Remove a largura máxima */
+    margin: 0; /* Remove a margem automática */
+  }
+}
+
+/* Outras Media Queries (Mantidas do original para ajustes menores) */
+@media (max-width: 768px) {
+  .contactSection {
+    padding: 60px 0;
+  }
+  .sectionTitle {
+    font-size: 2rem;
+  }
+  .cardTitle {
+    font-size: 1.3rem;
+  }
+  .reserveButton {
+    padding: 14px 24px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contactSection {
+    padding: 40px 0;
+  }
+  .sectionTitle {
+    font-size: 1.8rem;
+  }
+  .cardContent {
+    padding: 20px;
+  }
+  .tagline {
+    font-size: 1rem;
+    flex-direction: column;
+  }
+}
+
+
+@keyframes expandLine {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes floatParticle {
+  0% {
+    transform: translateY(0) translateX(0) scale(1);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px) scale(0);
+    opacity: 0;
+  }
+}
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: var(--accent-color-green, #28a745) }
+}
+
+@keyframes borderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes buttonPulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
